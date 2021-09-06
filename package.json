@@ -1,0 +1,52 @@
+{
+  "name": "webpack-ejs-ts-bootstraps-scss-ngrok-seed",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "prebuild-opt": "rimraf dist",
+    "build-opt": "cross-env-shell 'webpack --config webpack.$mode.js --env $opt'",
+    "build-dev": "cross-env mode=dev opt=OFF npm run build-opt",
+    "build-prd": "cross-env mode=prd opt=OFF npm run build-opt",
+    "serve-local": "npm run build-opt && cross-env-shell 'webpack serve --config webpack.$mode.js --env $opt'",
+    "serve": "cross-env mode=dev opt=OFF npm run serve-local",
+    "ngrok-set-up": "ngrok start -config ./ngrok.yml --all",
+    "webpack-tunnel-ngrok": "wait-on http://127.0.0.1:4040/ && cross-env mode=dev opt=NGROK_SERVE_ON npm run serve-local",
+    "serve-online": "concurrently -k -r \"npm:webpack-tunnel-ngrok\" \"npm:ngrok-set-up\""
+  },
+  "devDependencies": {
+    "@types/bootstrap": "4.6",
+    "@webpack-cli/generators": "^2.1.0",
+    "autoprefixer": "^10.2.5",
+    "concurrently": "^6.0.2",
+    "copy-webpack-plugin": "^8.1.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.4",
+    "cssnano": "^5.0.2",
+    "ejs-compiled-loader": "^3.1.0",
+    "ejs-loader": "^0.5.0",
+    "hook-shell-script-webpack-plugin": "^0.1.3",
+    "html-loader": "^2.1.2",
+    "html-webpack-injector": "^1.1.4",
+    "html-webpack-plugin": "^5.3.1",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^5.2.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "template-ejs-loader": "^0.5.0",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.2",
+    "wait-on": "^5.3.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^4.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "bootstrap": "4.6",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
+  }
+}

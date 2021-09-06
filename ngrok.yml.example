@@ -1,0 +1,9 @@
+authtoken: YOUR_TOKEN
+region: YOUR_REGION
+
+tunnels:
+  expose-webpack:
+    addr: 8080
+    proto: http
+    bind_tls: true
+    host-header: localhost:8080
