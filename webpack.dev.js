@@ -1,4 +1,6 @@
 module.exports = async (env) => {
+  let config;
+
   const {
     merge
   } = require('webpack-merge');
@@ -13,9 +15,9 @@ module.exports = async (env) => {
     if (env.NGROK_SERVE_ON) {
       const GET_NGROK_DOMAIN = await getNgrokDomain();
 
-      devServer.compress = true;
-      devServer.public = GET_NGROK_DOMAIN;
-      devServer.sockHost = GET_NGROK_DOMAIN;
+      config.devServer.client = {
+        webSocketURL: GET_NGROK_DOMAIN,
+      };
       return [
         new HookShellScriptPlugin({
           afterEmit: [`echo 
@@ -35,28 +37,32 @@ module.exports = async (env) => {
   }
 
   function _devServer() {
-    return {
+    const _devServer = {
       host: "localhost",
       static: {
         directory: path.join(__dirname, './dist'),
         watch: true,
       },
       watchFiles: './src/**/*',
-      open: {
+    };
+    if (!env.NGROK_SERVE_ON) {
+      _devServer['open'] = {
         app: {
           name: 'chrome',
         },
-      },
-    };
+      };
+    }
+    return _devServer;
   }
 
   async function _config(env) {
-    return {
-      plugins: await _plugins(env),
+    config = {
+      devServer: _devServer(env),
       mode: 'development',
-      devServer: _devServer(),
       devtool: 'inline-source-map',
     };
+    config['plugins'] = await _plugins(env);
+    return config;
   }
 
   return merge(common(env), await _config(env));
