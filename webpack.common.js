@@ -100,6 +100,9 @@ module.exports = (env) => {
       module: {
         rules: _rules(),
       },
+      resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+      },
     };
   }
 
