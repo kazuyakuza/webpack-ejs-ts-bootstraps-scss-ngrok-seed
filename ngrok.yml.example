@@ -1,9 +1,10 @@
 authtoken: YOUR_TOKEN
 region: YOUR_REGION
-
 tunnels:
-  expose-webpack:
+  expose_webpack:
     addr: 8080
     proto: http
-    bind_tls: true
-    host-header: localhost:8080
+    schemes:
+      - https
+    host_header: localhost:8080
+version: 2

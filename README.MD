@@ -2,7 +2,7 @@
 Project with webpack configuration to handle
 
 * build dev and prd dist
-* ejs templates
+* ejs templates [documentation](https://ejs.co/#docs)
 * typescript code
 * bootstraps included
 * css or scss styles
@@ -10,6 +10,13 @@ Project with webpack configuration to handle
 * vendor files
 * serve locally with webpack-dev-server
 * serve online with ngrok.com
+
+### Scripts
+
+- Use `build-dev` script to build dist targeting development environment
+- Use `build-prd` script to build dist targeting production environment
+- Use `serve` script to host project locally
+- Use `serve-online` script to host project locally and share it online (check **How-to serve-online script** below)
 
 ### How-to serve-online script
 
